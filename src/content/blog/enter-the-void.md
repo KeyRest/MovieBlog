@@ -14,3 +14,13 @@ One night, Oscar agrees to sell drugs to someone, but the deal goes wrong. The p
 This movie is full of bright, colorful, and trippy images. Sometimes the scenes look like a dream, with lights and colors moving in random ways. For example, there is a scene in a hotel room that feels like you are inside Oscar’s mind, a place with wild colors and shapes that make you feel confused, but also amazed. The way the movie shows these psychedelic visuals helps viewers feel what he is experiencing as a spirit, crossing between reality and imagination.
 
 The movie inspiration comes from a book called the Tibetan Book of the Dead. This book talks about what happens after a person dies. It describes a place called the Bardo, this is like an in-between state, before a soul moves to its next life. Sometimes Oscar's soul visits the past, remembering moments with his sister and their parents. Sometimes he sees the present, watching Linda as she deals with her pain and tries to keep living. The movie blurs the difference between past and present, dreams and real life.
+
+The movie shows Oscar’s thoughts and feelings, even though he is dead, He wants to protect Linda, just like they promised each other. This connection between the two is very strong and makes the story emotional. 
+
+Oscar understands his mistakes and regrets, the movie suggests that our connections to other people do not end when we die. Love, memories, and promises might continue in some way.
+
+The end of the movie is special. After going through many places and memories, finally, there is a sense of peace. The movie suggests that Oscar’s soul is ready to be reborn. This idea of reincarnation means that life, death, and birth happen in a cycle, again and again. 
+
+
+Did you liked it?
+Go watch it by yourself and make you own theories!
