@@ -4,7 +4,7 @@ description: 'A movie that would blow your mind.'
 pubDate: '05 05 2010'
 heroImage: 'https://indie-outlook.com/wp-content/uploads/2021/06/enter-the-void-header.jpg'
 ---
-###By Keiron Garro###
+### By Keiron Garro ###
 
 Enter the Void is a movie that can change the way you think about life, death, and what happens after. I have watched this film about five times, and every time I watch it, I discover something new that makes me overthink about what we are. The story is interesting and emotional. It takes place in Tokyo, a city that looks bright and fabulous, but is also full of secrets.
 
