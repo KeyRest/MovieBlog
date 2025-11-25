@@ -1,0 +1,388 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+	<!-- Reading Mode Selector -->
+	<div class="reading-mode-selector">
+		<button class="mode-btn" data-mode="default" title="Default Mode">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<circle cx="12" cy="12" r="10"></circle>
+			</svg>
+		</button>
+		<button class="mode-btn" data-mode="zen" title="Zen Mode - Minimal Distraction">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+			</svg>
+		</button>
+		<button class="mode-btn" data-mode="warm-contrast" title="Warm Contrast - Easy on Eyes">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<circle cx="12" cy="12" r="5"></circle>
+				<line x1="12" y1="1" x2="12" y2="3"></line>
+				<line x1="12" y1="21" x2="12" y2="23"></line>
+			</svg>
+		</button>
+		<button class="mode-btn" data-mode="night-reader" title="Night Reader - Dark Blue">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+			</svg>
+		</button>
+		<button class="mode-btn" data-mode="high-contrast" title="High Contrast - Maximum Readability">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<rect x="3" y="3" width="7" height="7" fill="currentColor"></rect>
+				<rect x="14" y="3" width="7" height="7"></rect>
+				<rect x="14" y="14" width="7" height="7" fill="currentColor"></rect>
+				<rect x="3" y="14" width="7" height="7"></rect>
+			</svg>
+		</button>
+	</div>
+
+	<article class="blog-post">
+		<div class="hero-image">
+			{post.data.heroImage && <img src={post.data.heroImage} alt={post.data.title} transition:name={`hero-${post.slug}`} />}
+		</div>
+		<div class="prose">
+			<div class="title">
+				<div class="date">
+					{post.data.pubDate.toLocaleDateString('en-us', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					})}
+				</div>
+				<h1 transition:name={`title-${post.slug}`}>{post.data.title}</h1>
+				<hr />
+			</div>
+			<Content />
+		</div>
+	</article>
+</Layout>
+
+<style is:global>
+	.reading-mode-selector {
+		position: fixed;
+		top: 50%;
+		right: 2rem;
+		transform: translateY(-50%);
+		z-index: 100;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		background: var(--glass-bg);
+		backdrop-filter: blur(12px);
+		padding: 0.75rem;
+		border-radius: 50px;
+		border: 1px solid var(--glass-border);
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	}
+
+	.mode-btn {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		border: none;
+		background: transparent;
+		color: var(--text-color);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s;
+	}
+
+	.mode-btn:hover {
+		background: rgba(0,0,0,0.1);
+		transform: scale(1.1);
+	}
+
+	[data-theme='dark'] .mode-btn:hover {
+		background: rgba(255,255,255,0.1);
+	}
+
+	.mode-btn.active {
+		background: var(--accent-color);
+		color: white;
+	}
+
+	/* Reading Mode Styles */
+	
+	/* Zen Mode - Minimal, Clean, Focused */
+	[data-reading-mode="zen"] {
+		--bg-gradient: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+		--glass-bg: rgba(255, 255, 255, 0.95);
+		--text-color: #2c2c2c;
+		--card-bg: rgba(255, 255, 255, 0.95);
+		--glass-border: rgba(0, 0, 0, 0.05);
+		--accent-color: #6b7280;
+	}
+
+	[data-reading-mode="zen"] header,
+	[data-reading-mode="zen"] footer,
+	[data-reading-mode="zen"] .background-shapes {
+		opacity: 0.3;
+		pointer-events: auto;
+	}
+
+	[data-reading-mode="zen"] .reading-mode-selector {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	/* Warm Contrast - Sepia-like with good contrast */
+	[data-reading-mode="warm-contrast"] {
+		--bg-gradient: linear-gradient(135deg, #f5e6d3 0%, #f0dcc4 100%);
+		--glass-bg: rgba(245, 230, 211, 0.85);
+		--text-color: #3d2817;
+		--card-bg: rgba(255, 248, 240, 0.9);
+		--glass-border: rgba(61, 40, 23, 0.15);
+		--accent-color: #8b4513;
+		--accent-hover: #a0522d;
+	}
+
+	/* Night Reader - Dark blue, easy on eyes */
+	[data-reading-mode="night-reader"] {
+		--bg-gradient: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+		--glass-bg: rgba(26, 31, 46, 0.85);
+		--text-color: #d4d4d8;
+		--card-bg: rgba(30, 35, 50, 0.8);
+		--glass-border: rgba(100, 116, 139, 0.2);
+		--accent-color: #60a5fa;
+		--accent-hover: #93c5fd;
+	}
+
+	/* High Contrast - Maximum readability */
+	[data-reading-mode="high-contrast"] {
+		--bg-gradient: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+		--glass-bg: rgba(0, 0, 0, 0.95);
+		--text-color: #ffffff;
+		--card-bg: rgba(10, 10, 10, 0.95);
+		--glass-border: rgba(255, 255, 255, 0.3);
+		--accent-color: #ffd700;
+		--accent-hover: #ffed4e;
+	}
+
+	[data-reading-mode="high-contrast"] .prose :global(p),
+	[data-reading-mode="high-contrast"] .prose :global(li) {
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.reading-mode-selector {
+			top: auto;
+			bottom: 2rem;
+			right: 1rem;
+			transform: none;
+			flex-direction: row;
+		}
+	}
+</style>
+
+<style>
+	.blog-post {
+		max-width: 800px;
+		margin: 0 auto;
+		padding-bottom: 4rem;
+	}
+
+	.hero-image {
+		width: 100%;
+		margin-bottom: 3rem;
+	}
+
+	.hero-image img {
+		display: block;
+		margin: 0 auto;
+		border-radius: var(--radius);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+		width: 100%;
+	}
+
+	.prose {
+		background: var(--card-bg);
+		backdrop-filter: blur(12px);
+		padding: 3rem;
+		border-radius: var(--radius);
+		border: 1px solid var(--glass-border);
+		box-shadow: var(--shadow-md);
+	}
+
+	.title {
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+
+	.date {
+		margin-bottom: 1rem;
+		color: var(--text-color);
+		opacity: 0.7;
+		font-size: 0.95rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	h1 {
+		font-size: 2.75rem;
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+		font-weight: 800;
+	}
+
+	hr {
+		border: 0;
+		border-top: 2px solid var(--accent-color);
+		margin: 1.5rem auto;
+		width: 100px;
+		opacity: 0.5;
+	}
+
+	/* Improved Typography for Content */
+	.prose :global(p) {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		margin-bottom: 1.5rem;
+		color: var(--text-color);
+	}
+
+	.prose :global(h2) {
+		font-size: 2rem;
+		margin-top: 3rem;
+		margin-bottom: 1.5rem;
+		font-weight: 700;
+		color: var(--text-color);
+	}
+
+	.prose :global(h3) {
+		font-size: 1.5rem;
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		font-weight: 600;
+		color: var(--text-color);
+	}
+
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin-bottom: 1.5rem;
+		padding-left: 2rem;
+	}
+
+	.prose :global(li) {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		margin-bottom: 0.75rem;
+		color: var(--text-color);
+	}
+
+	.prose :global(blockquote) {
+		border-left: 4px solid var(--accent-color);
+		padding-left: 1.5rem;
+		margin: 2rem 0;
+		font-style: italic;
+		color: var(--text-color);
+		opacity: 0.9;
+	}
+
+	.prose :global(code) {
+		background: rgba(0,0,0,0.1);
+		padding: 0.2rem 0.4rem;
+		border-radius: 4px;
+		font-size: 0.9em;
+		font-family: 'Courier New', monospace;
+	}
+
+	.prose :global(pre) {
+		background: rgba(0,0,0,0.1);
+		padding: 1.5rem;
+		border-radius: var(--radius);
+		overflow-x: auto;
+		margin: 2rem 0;
+	}
+
+	.prose :global(pre code) {
+		background: none;
+		padding: 0;
+	}
+
+	.prose :global(a) {
+		color: var(--accent-color);
+		text-decoration: underline;
+		transition: opacity 0.2s;
+	}
+
+	.prose :global(a:hover) {
+		opacity: 0.8;
+	}
+
+	.prose :global(img) {
+		border-radius: var(--radius);
+		margin: 2rem 0;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	}
+
+	@media (max-width: 768px) {
+		.prose {
+			padding: 2rem 1.5rem;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.prose :global(p),
+		.prose :global(li) {
+			font-size: 1rem;
+		}
+
+		.prose :global(h2) {
+			font-size: 1.5rem;
+		}
+
+		.prose :global(h3) {
+			font-size: 1.25rem;
+		}
+	}
+</style>
+
+<script>
+	// Reading Mode Functionality
+	const modeButtons = document.querySelectorAll('.mode-btn');
+	const html = document.documentElement;
+
+	// Load saved mode
+	const savedMode = localStorage.getItem('reading-mode') || 'default';
+	html.setAttribute('data-reading-mode', savedMode);
+	document.querySelector(`[data-mode="${savedMode}"]`)?.classList.add('active');
+
+	modeButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const mode = btn.getAttribute('data-mode');
+			
+			// Update active state
+			modeButtons.forEach(b => b.classList.remove('active'));
+			btn.classList.add('active');
+			
+			// Apply mode
+			html.setAttribute('data-reading-mode', mode);
+			localStorage.setItem('reading-mode', mode);
+		});
+	});
+
+	// Persist on page navigation
+	document.addEventListener('astro:after-swap', () => {
+		const mode = localStorage.getItem('reading-mode') || 'default';
+		html.setAttribute('data-reading-mode', mode);
+		document.querySelector(`[data-mode="${mode}"]`)?.classList.add('active');
+	});
+</script>

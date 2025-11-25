@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="MovieBlog - Reviews">
+	<div class="background-shapes">
+		<div class="shape shape-1"></div>
+		<div class="shape shape-2"></div>
+		<div class="shape shape-3"></div>
+	</div>
+
+	<section class="blog-hero">
+		<h1>Theories & Analysis</h1>
+		<p>Deep dives into the stories that captivate us</p>
+	</section>
+
+	<div class="posts-grid">
+		{
+			posts.map((post, index) => (
+				<article class="post-card glass-card" style={`animation-delay: ${index * 0.1}s`}>
+					<a href={`/blog/${post.slug}/`}>
+						{post.data.heroImage && <img src={post.data.heroImage} alt={post.data.title} transition:name={`hero-${post.slug}`} />}
+						<div class="content">
+							<h2 transition:name={`title-${post.slug}`}>{post.data.title}</h2>
+							<p class="date">
+								{post.data.pubDate.toLocaleDateString('en-us', {
+									year: 'numeric',
+									month: 'short',
+									day: 'numeric',
+								})}
+							</p>
+							<p>{post.data.description}</p>
+						</div>
+					</a>
+				</article>
+			))
+		}
+	</div>
+</Layout>
+
+<style>
+	/* Background Animation */
+	.background-shapes {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.shape {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(80px);
+		opacity: 0.5;
+		animation: float 20s infinite ease-in-out;
+	}
+
+	.shape-1 {
+		top: -10%;
+		right: -10%;
+		width: 500px;
+		height: 500px;
+		background: var(--accent-color);
+		animation-delay: 0s;
+	}
+
+	.shape-2 {
+		bottom: 20%;
+		left: -5%;
+		width: 400px;
+		height: 400px;
+		background: color-mix(in srgb, var(--accent-color), purple 30%);
+		animation-delay: -7s;
+	}
+
+	.shape-3 {
+		top: 50%;
+		right: 30%;
+		width: 300px;
+		height: 300px;
+		background: color-mix(in srgb, var(--accent-color), cyan 30%);
+		animation-delay: -14s;
+	}
+
+	@keyframes float {
+		0%, 100% { transform: translate(0, 0) rotate(0deg); }
+		33% { transform: translate(30px, -50px) rotate(10deg); }
+		66% { transform: translate(-20px, 20px) rotate(-5deg); }
+	}
+
+	.blog-hero {
+		text-align: center;
+		padding: 4rem 0 3rem;
+		animation: fadeInUp 0.8s ease-out;
+	}
+
+	.blog-hero h1 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+		background: linear-gradient(to right, var(--accent-color), var(--accent-hover));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		font-weight: 800;
+	}
+
+	.blog-hero p {
+		font-size: 1.25rem;
+		opacity: 0.8;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 2rem;
+		padding-bottom: 4rem;
+	}
+
+	.post-card {
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		opacity: 0;
+		animation: fadeIn 0.5s ease-out forwards;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeInUp {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.post-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+	}
+
+	.post-card a {
+		color: inherit;
+		display: block;
+		height: 100%;
+	}
+
+	.post-card img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+		border-radius: 0;
+		border-bottom: 1px solid var(--glass-border);
+	}
+
+	.content {
+		padding: 1.5rem;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+		color: var(--text-color);
+		transition: color 0.2s;
+	}
+
+	.post-card:hover h2 {
+		color: var(--accent-color);
+	}
+
+	.date {
+		font-size: 0.9rem;
+		color: var(--text-color);
+		opacity: 0.7;
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.blog-hero h1 { font-size: 2rem; }
+		.posts-grid { grid-template-columns: 1fr; }
+	}
+</style>
