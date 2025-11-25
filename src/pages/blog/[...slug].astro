@@ -59,8 +59,6 @@ const { Content } = await post.render();
 				<div class="date">
 					{post.data.pubDate.toLocaleDateString('en-us', {
 						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
 					})}
 				</div>
 				<h1 transition:name={`title-${post.slug}`}>{post.data.title}</h1>

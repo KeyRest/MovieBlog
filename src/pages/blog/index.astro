@@ -30,8 +30,6 @@ const posts = (await getCollection('blog')).sort(
 							<p class="date">
 								{post.data.pubDate.toLocaleDateString('en-us', {
 									year: 'numeric',
-									month: 'short',
-									day: 'numeric',
 								})}
 							</p>
 							<p>{post.data.description}</p>

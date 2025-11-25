@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 
 const team = [
-	{ name: "Keiron", role: "Lead Developer & Editor" },
-	{ name: "Member 2", role: "Content Writer" },
-	{ name: "Member 3", role: "Researcher" }
+	{ name: "Keiron Garro Matamoros", role: "C23212" },
+	{ name: "Kristen Sofia Lopez Vargas", role: "C34408" },
+	{ name: "Ericka Flores Vargas", role: "C32983" },
+	{ name: "Jhon Jairo Solano Carranza", role: "C07560" }
 ];
 ---
 
-<Layout title="MovieBlog - Theories & Resumes">
+<Layout title="Movie Gossip - Theories & Resumes">
 	<div class="background-shapes">
 		<div class="shape shape-1"></div>
 		<div class="shape shape-2"></div>
@@ -190,8 +191,10 @@ const team = [
 
 	.team-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(2, 1fr);
 		gap: 2rem;
+		max-width: 600px;
+		margin: 0 auto;
 	}
 
 	.team-member {
