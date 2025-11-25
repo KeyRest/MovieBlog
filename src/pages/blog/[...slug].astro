@@ -182,10 +182,18 @@ const { Content } = await post.render();
 	@media (max-width: 768px) {
 		.reading-mode-selector {
 			top: auto;
-			bottom: 2rem;
+			bottom: 1rem;
 			right: 1rem;
+			left: auto;
 			transform: none;
 			flex-direction: row;
+			padding: 0.5rem;
+			z-index: 1001;
+		}
+
+		.mode-btn {
+			width: 44px;
+			height: 44px;
 		}
 	}
 </style>
@@ -357,32 +365,59 @@ const { Content } = await post.render();
 
 <script>
 	// Reading Mode Functionality
-	const modeButtons = document.querySelectorAll('.mode-btn');
-	const html = document.documentElement;
+	function initReadingMode() {
+		const modeButtons = document.querySelectorAll('.mode-btn');
+		const html = document.documentElement;
 
-	// Load saved mode
-	const savedMode = localStorage.getItem('reading-mode') || 'default';
-	html.setAttribute('data-reading-mode', savedMode);
-	document.querySelector(`[data-mode="${savedMode}"]`)?.classList.add('active');
+		// Load saved mode
+		const savedMode = localStorage.getItem('reading-mode') || 'default';
+		html.setAttribute('data-reading-mode', savedMode);
+		const activeBtn = document.querySelector(`[data-mode="${savedMode}"]`);
+		if (activeBtn) {
+			activeBtn.classList.add('active');
+		}
 
-	modeButtons.forEach(btn => {
-		btn.addEventListener('click', () => {
-			const mode = btn.getAttribute('data-mode');
-			
-			// Update active state
-			modeButtons.forEach(b => b.classList.remove('active'));
-			btn.classList.add('active');
-			
-			// Apply mode
-			html.setAttribute('data-reading-mode', mode);
-			localStorage.setItem('reading-mode', mode);
+		// Handle button clicks (works for both mouse and touch)
+		modeButtons.forEach(btn => {
+			// Remove any existing listeners
+			const handleModeChange = (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				
+				const mode = btn.getAttribute('data-mode');
+				
+				// Update active state
+				modeButtons.forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				
+				// Apply mode
+				html.setAttribute('data-reading-mode', mode);
+				localStorage.setItem('reading-mode', mode);
+				
+				// Force a repaint
+				document.body.style.display = 'none';
+				document.body.offsetHeight; // Trigger reflow
+				document.body.style.display = 'flex';
+			};
+
+			btn.addEventListener('click', handleModeChange);
+			btn.addEventListener('touchend', handleModeChange);
 		});
-	});
+	}
+
+	// Initialize on page load
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initReadingMode);
+	} else {
+		initReadingMode();
+	}
 
 	// Persist on page navigation
+	document.addEventListener('astro:page-load', initReadingMode);
+	
 	document.addEventListener('astro:after-swap', () => {
 		const mode = localStorage.getItem('reading-mode') || 'default';
-		html.setAttribute('data-reading-mode', mode);
-		document.querySelector(`[data-mode="${mode}"]`)?.classList.add('active');
+		document.documentElement.setAttribute('data-reading-mode', mode);
+		setTimeout(initReadingMode, 100);
 	});
 </script>
