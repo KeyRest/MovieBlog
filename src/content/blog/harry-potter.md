@@ -4,6 +4,7 @@ description: 'A review of the Harry Potter Saga.'
 pubDate: '2001'
 heroImage: 'https://deadline.com/wp-content/uploads/2023/04/harry-potter.jpg?w=1024'
 ---
+###By Ericka###
 
 When I was a girl my mom showed me the Harry Potter movies and i simply loved themthe first two. These films mean a lot to me because they're not only full of magic and adventure but also show how someone can completely change their life when they discover who they really are and when they find true friends.
 
