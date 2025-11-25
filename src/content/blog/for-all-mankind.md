@@ -4,7 +4,7 @@ description: 'A review of the For all Mankind series.'
 pubDate: '2019'
 heroImage: 'https://www.apple.com/tv-pr/articles/2020/12/apple-tv-announces-early-season-three-renewal-for-for-all-mankind/images/big-image-01/120820_Apple_Season_Three_For_All_Mankind_Big_Image_01_big_image_post.jpg.large.jpg'
 ---
-### By John Jairo ###
+### By Jhon Jairo ###
 
 This series is one of my favorites, because it involves one of my favorite subjects, human technology, space, and a big what if, in this case, the main point of this series is: what if the United States lost the space race?, and we get to see what the ramifications of these changes lead to.
 
