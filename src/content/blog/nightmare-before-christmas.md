@@ -4,6 +4,7 @@ description: 'A review of the Nightmare Before Christmas movie.'
 pubDate: '1993'
 heroImage: 'https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/fd70103e-fea0-4651-ba92-d1c3bc30ab44/compose?aspectRatio=1.78&format=webp&width=1200'
 ---
+###By Kristen###
 
 To make a little resume about the story, the nightmare before Christmas is one of my favorite movies in all times, I have been watching it over and over again since I was a kid, I have seen it so many times both in Spanish in English that I know songs and dialogues both in Spanish in English.
 
