@@ -4,7 +4,7 @@ description: 'A review of the Corpse Bride movie.'
 pubDate: '2005'
 heroImage: 'https://m.media-amazon.com/images/S/pv-target-images/425d0b378e38249bcebd35b2ffcbb5d5fa6de20fbe0e09833709e1a9e7b87289._SX1080_FMjpg_.jpg'
 ---
-###By Kristen###
+### By Kristen ###
 
 Corpse bride, it’s another one of my favorite movies of all times. The story goes like this: a young boy that comes from a family, not poor, but not rich either, it’s forced to marry a pretty young lady called Victoria, that actually comes from a wealthy family that it’s going through a crisis. They ran out of money,  so this marriage like almost every marriage on that time was actually a marriage of convenience. Victor is really worried, he’s scared what if he doesn’t love Victoria, when they get to the mansion Victor meets Victoria, talk a little about the piano. When the time for practicing their vows Victor it’s being messy and nervous because he’s he’s so nervous to mess all of that, he ends up messing it and runs out of the house into the forest being ashamed and embarrass about everything he did. He’s so deep into thought that he starts to say his vows in the most amazing way possible, ending his perfect speech with the phrase “with this ring I ask you to be mine” after that phrase the tree he put the ring on starts to come from under the ground and turning into a corpse. He’s so scared, seen the corse before him he instantly pass out, but not before the curse answers “I do”.
 
